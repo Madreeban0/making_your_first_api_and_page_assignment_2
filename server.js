@@ -49,6 +49,60 @@ Example Responses:
 List of Status Codes to Handle:
 200, 201, 204, 400, 401, 403, 404, 405, 429, 500, 502, 503, 504
 */
+app.get('/status-info',(req,res)=>{
+  let meassage;
+  const code= req.query.code;
+
+  switch(code){
+    case 200:
+      message="Not Found: The server has not found anything matching the request URI. This is often caused by a missing page or resource.";
+      break;
+    case 201:
+      message="The request was sucessful and a new resources was created as a result";
+      break;
+    case 204:
+      massage="The request was success but there is no data to send back";
+      break;
+    case 400:
+      message="The server cannot process due to cleint-side errors.";
+      break;
+    case 401:
+      message="The client must athenticate itself to receive a requested response";
+      break;
+    case 403:
+      message="The client does not have a permission for the requested response";
+      break;
+    case 404:
+      message="The requested resouce could not be found on the server";
+      break;
+    case 405:
+      message="The HTTP used is not supported for requested response";
+      break;
+    case 429:
+      message="The client has sent too many requests in given time-framing and rate-limiting has been applied";
+      break;
+    case 500:
+      message="The server encoutered the unexpected condition that prevented it from fullfilling the request";
+      break;
+    case 502:
+      message="The server received an invalid response from the upstream server while trying to fulfill the request";
+      break;
+    case 503:
+      message="The server is temporarily unavai;b;e";
+      break;
+    case 504:
+      message="The server did not receive timely response from the upstream server";
+      break;
+    default:
+      message="Give valid code";
+      break;
+  }
+  res.json({
+    status:`${code}`,
+    message: message
+
+  })
+})
 
 const PORT = 3000;
 app.listen(PORT, () => {
